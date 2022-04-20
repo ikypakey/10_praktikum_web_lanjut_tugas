@@ -17,3 +17,6 @@ use Illuminate\Http\Request;
 
 Route::resource('/mahasiswa', MahasiwaController::class);
 Route::get('mahasiswa/nilai/{id_mahasiswa}', [MahasiwaController::class, 'nilai'])->name('nilai');
+
+//route untuk ekspor/cetak nilai
+Route::get('cetak_pdf/{id_mahasiswa}',[MahasiwaController::class, 'cetak_pdf']);

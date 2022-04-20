@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Kelas;
 use App\Models\Mahasiswa_Matakuliah;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 
 
@@ -153,7 +154,7 @@ class MahasiwaController extends Controller
             'alamat' => 'required|string',
             'tanggal_lahir' => 'required',
         ]);
-        // jika bernilai pada data mhs memiliki nilai, nantinya file yang ada di public dihapus dan tidak terjadi penumpukan file
+        // jika bernilai pada data mhs memiliki nilai, nantinya file yang ada di public dihapus dan tidak terjadi penumpukan file   
 
         if ($dataMhs->foto && file_exists(storage_path('app/public/' . $dataMhs->foto))) {
             Storage::delete('public/' . $dataMhs->foto);
@@ -192,4 +193,13 @@ class MahasiwaController extends Controller
         ]);
 
     }
+    public function cetak_pdf($id_mahasiswa)
+    {
+        $ekspor = Mahasiwa::find($id_mahasiswa);
+        $mhs = $ekspor;
+        $pdf = PDF::loadview('mahasiswa.ekspor', compact('mhs'));
+        return $pdf->stream();
+    }
+
+
 }
