@@ -6,6 +6,7 @@ use App\Models\Mahasiwa;
 use Illuminate\Support\Facades\DB;
 use App\Models\Kelas;
 use App\Models\Mahasiswa_Matakuliah;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -58,15 +59,20 @@ class MahasiwaController extends Controller
     public function store(Request $request)
     {
         //melakukan validasi data, fungsi untuk memanggil file create.blade untuk pemrosesan
-        $request->validate([
+     $validasi =  $request->validate([
             'nim' => 'required|digits_between:8,10|unique:mahasiswa,nim',
             'nama' => 'required|string',
+            'foto'=> 'required',
             'kelas_id' => 'required',
             'jurusan' => 'required|string|max:25',
             'email' => 'required|string',
             'alamat' => 'required|string',
             'tanggal_lahir' => 'required',
         ]);
+        if ($request->file('foto')) {
+            $validasi['foto'] = $request->file('foto')->store('images', 'public');
+        }
+
 
         //  $mahasiswa = new Mahasiwa;
         //  $mahasiswa->nim=$request->get('nim');
@@ -84,7 +90,7 @@ class MahasiwaController extends Controller
         //  $mahasiswa->kelas()->associate($kelas);
         //  $mahasiswa->save();
 
-        Mahasiwa::create($request->all());
+        Mahasiwa::create($validasi);
 
          //jika data berhasil ditambahkan, akan kembali ke halaman utama
          return redirect()->route('mahasiswa.index')
@@ -133,15 +139,28 @@ class MahasiwaController extends Controller
     public function update(Request $request,  $id_mahasiswa)
     {
         //melakukan validasi data fungsi untuk memanggil file edit.blade untuk pemrosesan
+
+        //memanggil data mahasiswa yang memiliki id_mahasiswa
+    $dataMhs = Mahasiwa::find($id_mahasiswa); 
+
     $data= $request->validate([
             'nim' => 'required|digits_between:8,10',
             'nama' => 'required|string',
+            'foto'=> 'required',
             'kelas_id' => 'required',
             'jurusan' => 'required|string|max:25',
             'email' => 'required|string',
             'alamat' => 'required|string',
             'tanggal_lahir' => 'required',
         ]);
+        // jika bernilai pada data mhs memiliki nilai, nantinya file yang ada di public dihapus dan tidak terjadi penumpukan file
+
+        if ($dataMhs->foto && file_exists(storage_path('app/public/' . $dataMhs->foto))) {
+            Storage::delete('public/' . $dataMhs->foto);
+        }
+        $foto = $request->file('foto')->store('images', 'public');
+        $data['foto'] = $foto;
+
         //fungsi eloquent untuk mengupdate data inputan kita
         //memanggil nama kolom dalam model mahasiswa yang sesuai dengan id mahasiswa yg di req
         Mahasiwa::where('id_mahasiswa', $id_mahasiswa)->update($data);

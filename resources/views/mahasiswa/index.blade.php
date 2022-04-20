@@ -45,7 +45,7 @@
     <tr>
         <td>{{ $mhs ->nim }}</td>
         <td>{{ $mhs ->nama }}</td>
-        <td>{{ $mhs ->foto }}</td>
+        <td><img src="{{ asset('storage/'.$mhs -> foto) }}" alt="" height="150px" width="150px" class="rounded" style="object-fit: cover"></td>
         <td>{{ $mhs ->kelas->nama_kelas }}</td>
         <td>{{ $mhs ->jurusan }}</td>
         <td>{{ $mhs ->email }}</td>
