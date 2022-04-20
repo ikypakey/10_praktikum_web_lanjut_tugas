@@ -14,14 +14,16 @@ class MahasiswaMatakuliah extends Migration
      */
     public function up()
     {
-         Schema::create('mahasiswa_matakuliah', function (Blueprint $table){
-            $table->id();
-            $table->string('mahasiswa_id',10)->nullable();
-            $table->unsignedBigInteger('matakuliah_id')->nullable();
-            $table->string('nilai');
+        Schema::create('mahasiswa_matakuliah', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('mahasiswa_id');
+            $table->unsignedBigInteger('matakuliah_id');
+            $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa');
             $table->foreign('matakuliah_id')->references('id')->on('matakuliah');
-            $table->foreign('mahasiswa_id')->references('nim')->on('mahasiswa');
+            $table->string('nilai');
+            $table->timestamps();
         });
+
     }
 
     /**

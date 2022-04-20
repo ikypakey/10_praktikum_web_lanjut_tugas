@@ -6,9 +6,9 @@
 
         <br><br><br>
 
-        <b>Nama &nbsp:</b> {{ $mhs->mahasiswa->nama}}<br>
-        <b>NIM &nbsp &nbsp : </b>{{ $mhs->mahasiswa->nim}}<br>
-        <b>Kelas &nbsp : </b> {{ $mhs->mahasiswa->kelas->nama_kelas}}<br>
+        <b>Nama &nbsp:</b> {{ $mhs->nama}}<br>
+        <b>NIM &nbsp &nbsp : </b>{{ $mhs->nim}}<br>
+        <b>Kelas &nbsp : </b> {{ $mhs->kelas->nama_kelas}}<br>
 
         <br>
         <table class="table table-bordered">
@@ -18,14 +18,15 @@
             <th>Semester</th>
             <th>Nilai</th>
             </tr>
-            @foreach ($mhs as $n)
-            <tr>
-            <td>{{ $n->matakuliah->nama_matkul }}</td>
-            <td>{{ $n->matakuliah->sks }}</td>
-            <td>{{ $n->matakuliah->semester }}</td>
-            <td>{{ $n->nilai  }}</td>
+             @foreach ($mhs -> matakuliah as $item)
+             <tr>
+            <th scope="row">{{ $item -> nama_matkul }}</th>
+            <td>{{ $item -> sks }}</td>
+            <td>{{ $item -> semester }}</td>
+            <td>{{ $item -> pivot -> nilai }}</td>
             </tr>
-            @endforeach
+        @endforeach
+
             </table>
     </div>
 @endsection 

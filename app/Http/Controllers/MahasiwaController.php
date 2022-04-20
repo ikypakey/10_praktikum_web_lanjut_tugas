@@ -167,11 +167,10 @@ class MahasiwaController extends Controller
     }
     public function nilai($id_mahasiswa)
     {
-        // Join relasi ke mahasiswa dan mata kuliah
-        $mhs = Mahasiswa_MataKuliah::with('matakuliah')->where("mahasiswa_id", $id_mahasiswa)->get();
-        $mhs->mahasiswa = Mahasiwa::with('kelas')->where("nim", $id_mahasiswa)->first();
-        //dd($mhs[0]);
-        // Menampilkan nilai
-        return view('mahasiswa.nilai', compact('mhs'));
+        $Mahasiswa = Mahasiwa::where('id_mahasiswa', $id_mahasiswa)->first();
+        return view('mahasiswa.nilai', [
+            'mhs' => $Mahasiswa,
+        ]);
+
     }
 }

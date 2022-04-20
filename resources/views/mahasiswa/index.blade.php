@@ -31,19 +31,21 @@
 @endif
 <table class="table table-bordered">
     <tr>
-        <th>Nim</th>
+        <th>NIM</th>
         <th>Nama</th>
+        <th>Foto Mahasiswa</th>
         <th>Kelas</th>
         <th>Jurusan</th>
         <th>Email</th>
         <th>Alamat</th>
         <th>Tanggal Lahir</th>
-        <th width="300px">Action</th>
+        <th width="2000px">Action</th>
     </tr>
     @foreach ($post as $mhs)
     <tr>
         <td>{{ $mhs ->nim }}</td>
         <td>{{ $mhs ->nama }}</td>
+        <td>{{ $mhs ->foto }}</td>
         <td>{{ $mhs ->kelas->nama_kelas }}</td>
         <td>{{ $mhs ->jurusan }}</td>
         <td>{{ $mhs ->email }}</td>
@@ -53,7 +55,7 @@
             <form action="{{ route('mahasiswa.destroy',['mahasiswa'=>$mhs->id_mahasiswa]) }}" method="POST">
                 <a class="btn btn-info" href="{{ route('mahasiswa.show',$mhs->id_mahasiswa) }}">Show</a>
                 <a class="btn btn-primary" href="{{ route('mahasiswa.edit',$mhs->id_mahasiswa) }}">Edit</a>
-                <a class="btn btn-warning" href="{{route('nilai',$mhs->nim) }}"> Nilai</a>
+                <a class="btn btn-warning" href="{{route('nilai',$mhs->id_mahasiswa) }}"> Nilai</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Delete</button>

@@ -15,6 +15,30 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        $this ->call([KelasSeeder::class,MataKuliahSeeder::class,MahasiwaSeeder::class,UpdateMahasiswaSeeder::class,NilaiSeeder::class]);
+            $this->call([
+            KelasSeeder::class,
+            UpdateMahasiswaSeeder::class,
+            MataKuliahSeeder::class,
+
+        ]);
+        
+        Mahasiwa::create([
+            'nim' => '2041720007',
+            'nama' => 'Muhammad Dina',
+            'foto' => 'default.png',
+            'kelas_id' => 5,
+            'jurusan' => 'Teknik Elektro',
+            'email'=> 'akunkuliah140@gmail.com',
+            'alamat'=> 'Sidoarjo',
+            'tanggal_lahir' => '2001-09-09'
+            
+        ]);
+        $this->call([
+
+            NilaiSeeder::class,
+        ]);
+
+       
+
     }
 }
