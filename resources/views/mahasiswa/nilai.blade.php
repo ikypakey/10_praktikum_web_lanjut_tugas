@@ -9,9 +9,9 @@
         <div class="text-right">
             <a href="/cetak_pdf/{{ $mhs -> id_mahasiswa }}" class="btn btn-dark"> Cetak PDF </a>
         </div>
-        <b>Nama &nbsp:</b> {{ $mhs->nama}}<br>
-        <b>NIM &nbsp &nbsp : </b>{{ $mhs->nim}}<br>
-        <b>Kelas &nbsp : </b> {{ $mhs->kelas->nama_kelas}}<br>
+        <b>Nama &nbsp; :</b> {{ $mhs->nama}}<br>
+        <b>NIM&nbsp; &nbsp; &nbsp;: </b>{{ $mhs->nim}}<br>
+        <b>Kelas &nbsp; &nbsp;: </b> {{ $mhs->kelas->nama_kelas}}<br>
 
         <br>
         <table class="table table-bordered">
